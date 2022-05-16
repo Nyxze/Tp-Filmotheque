@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-export default function Film({ film }) {
+export default function Fleur({ fleur }) {
 
 
 
@@ -11,29 +11,29 @@ export default function Film({ film }) {
 
                     <Link
                         style={{ display: "block", margin: "1rem 0" }}
-                        to={`/film/${film.id}`}
-                        key={film.id}
+                        to={`/fleur/${fleur.id}`}
+                        key={fleur.id}
                     >
-                        {film.titre} 
+                        {fleur.titre} 
                     </Link>
                 </td>
 
                 <td>
-                    {film.year}
+                    {fleur.year}
                 </td>
 
                 <td>
-                    {film.style.label}
+                    {fleur.style.libelle}
                 </td>
 
                 <td>
-                    {`${film.realisateur.nom} ${film.realisateur.prenom}`}
+                    {`${fleur.realisateur.nom} ${fleur.realisateur.prenom}`}
                 </td>
                 <td>
 
                 </td>
                 <td>
-                    {film.vue ? "Oui" : "Non"}
+                    {fleur.vue ? "Oui" : "Non"}
                 </td>
 
             </tr>

@@ -3,6 +3,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import { Link } from "react-router-dom";
+import Dropdown from 'react-bootstrap/Dropdown'
 
 function NavbarMain() {
 
@@ -15,11 +16,26 @@ function NavbarMain() {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
-                            <Nav.Link as={Link} to={"/list-film"}>Liste des films</Nav.Link>
-                            <Nav.Link as={Link} to={"/add-film"}>Ajouter un film</Nav.Link>
-                            <Nav.Link as={Link} to={"/style"}>Styles</Nav.Link>
-                            <Nav.Link as={Link} to={"/about"}>Qui sommes-nous</Nav.Link>
+                            <Nav.Link as={Link} to={"/home"}>Acceuil</Nav.Link>
+                            <Nav.Link as={Link} to={"/bouquets"}>Bouquets</Nav.Link>
+                            <Nav.Link as={Link} to={"/fleurs"}>Fleurs</Nav.Link>
+                            <Nav.Link as={Link} to={"/pantes"}>Plantes</Nav.Link>
                         </Nav>
+                        <Dropdown>
+                            <Dropdown.Toggle id="dropdown-basic">
+                                Gestion
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                                <Dropdown.Item as={Link} to={"/gestion/plantes"}>Plantes</Dropdown.Item>
+                                <Dropdown.Item as={Link} to={"/gestion/fleurs"}>Fleurs</Dropdown.Item>
+                                <Dropdown.Item as={Link} to={"/gestion/bouquets"}>Bouquets</Dropdown.Item>
+                                <Dropdown.Divider />
+                                <Dropdown.Item as={Link} to={"/gestion/saisons"}>Saisons</Dropdown.Item>
+                                <Dropdown.Divider />
+                                <Dropdown.Item as={Link} to={"/gestion/styles"}>Styles</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>

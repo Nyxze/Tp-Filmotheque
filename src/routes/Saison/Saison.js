@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import AddStyle from '../../component/Input/AddStyle'
-import StyleComponent from '../../component/Row/Style';
+import SaisonComponent from '../../component/Row/Saison';
 import axios from 'axios';
-export default function Style() {
+import AddSaison from '../../component/Input/AddSaison';
+export default function Saison() {
 
-    const [stylesData, setStylesData] = useState([]);
+    const [seasonData, setseasonData] = useState([]);
     const [isSubmitted, setSubmitted] = useState(false);
 
 
     const getStylesData = async () => {
-        const { data } = await axios.get('styles');
-        setStylesData(data);
+        const { data } = await axios.get('saisons');
+        setseasonData(data);
 
     }
 
@@ -21,18 +21,18 @@ export default function Style() {
     }, [isSubmitted]);
 
 
-    const createStyleList = () => {
+    const createSaisonList = () => {
 
-        return stylesData.map((style) => {
+        return seasonData.map((season) => {
 
-            return <StyleComponent  setSubmitted={setSubmitted} key={style.libelle} style={style}></StyleComponent>
+            return <SaisonComponent setSubmitted={setSubmitted} key={season.id} season={season}></SaisonComponent>
         })
     }
 
 
     return (
         <div >
-                     <h2> Liste des styles </h2>
+            <h2> Liste des saisons </h2>
             <table className='table'>
                 <thead>
                     <tr>
@@ -43,11 +43,11 @@ export default function Style() {
                     </tr>
                 </thead>
                 <tbody>
-                    {createStyleList()}
+                    {createSaisonList()}
 
                 </tbody>
             </table>
-            <AddStyle setSubmitted={setSubmitted} />
+            <AddSaison setSubmitted={setSubmitted} />
         </div>
     )
 

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import FilmComponenent from '../../component/Film';
+import FilmComponenent from '../../component/Row/Fleur';
 import axios from 'axios';
 export default function Film() {
 
-    let URL_API = "http://localhost:8080/Tp-filmotheque-0.0.1-SNAPSHOT/api/film";
-    const [filmsData, setFilmsData] = useState([]);
+
+    const [fleursData, setFleursData] = useState([]);
 
     const getFilmsData = async () => {
-        const { data } = await axios.get(URL_API);
-        setFilmsData(data);
+        const { data } = await axios.get('fleurs');
+        setFleursData(data);
 
     }
 
@@ -19,9 +19,9 @@ export default function Film() {
 
     const createFilmList = () => {
 
-        return filmsData.map((film) => {
+        return fleursData.map((fleurs) => {
 
-            return <FilmComponenent key={film.id} film={film}></FilmComponenent>
+            return <FilmComponenent key={fleurs.id} film={fleurs}></FilmComponenent>
         })
     }
 
