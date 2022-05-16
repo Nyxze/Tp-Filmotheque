@@ -6,11 +6,17 @@ export default function Saison() {
 
     const [seasonData, setseasonData] = useState([]);
     const [isSubmitted, setSubmitted] = useState(false);
+    const [isEmpty, setIsEmpty] = useState();
 
 
     const getStylesData = async () => {
         const { data } = await axios.get('saisons');
-        setseasonData(data);
+        if (data.length > 0) {
+            setseasonData(data);
+            setIsEmpty(false);
+        } else {
+            setIsEmpty(true);
+        }
 
     }
 
@@ -18,7 +24,7 @@ export default function Saison() {
         getStylesData();
         setSubmitted(false);
 
-    }, [isSubmitted]);
+    }, [isSubmitted, isEmpty]);
 
 
     const createSaisonList = () => {
@@ -33,6 +39,7 @@ export default function Saison() {
     return (
         <div >
             <h2> Liste des saisons </h2>
+            {isEmpty ? "Aucune saisons" :
             <table className='table'>
                 <thead>
                     <tr>
@@ -47,6 +54,7 @@ export default function Saison() {
 
                 </tbody>
             </table>
+            }
             <AddSaison setSubmitted={setSubmitted} />
         </div>
     )

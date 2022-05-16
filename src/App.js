@@ -6,7 +6,7 @@ import Style from './routes/Style/Style';
 import Saison from "./routes/Saison/Saison";
 import Plante from "./routes/Plante/Plante";
 import Bouquet from "./routes/Bouquet/Bouquet";
-import Fleur from "./component/Row/Fleur";
+import Fleur from "./routes/Fleur/Fleur";
 
 function App() {
   axios.defaults.baseURL = "http://localhost:8080/Tp-fleuriste/api/";

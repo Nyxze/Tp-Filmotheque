@@ -1,15 +1,13 @@
 import { Link } from "react-router-dom";
 import axios from 'axios';
-export default function Plante({ setUpdatePlante, plante, setSubmitted }) {
-
+export default function Plante({ plante, setSubmitted }) {
 
     const handleClick = async (e) => {
 
         try {
             if (e.target.name === "update") {
 
-                let res = await axios.get("plantes/" + plante.id);
-                setUpdatePlante(plante);
+                await axios.get("plantes/" + plante.id);
 
             }
             if (e.target.name === "delete") {
@@ -28,7 +26,7 @@ export default function Plante({ setUpdatePlante, plante, setSubmitted }) {
     return (
 
         <>
-            <tr>
+            <tr key={plante.id}>
                 <td>
 
                     {plante.id}
@@ -38,7 +36,6 @@ export default function Plante({ setUpdatePlante, plante, setSubmitted }) {
                     <Link
                         style={{ display: "block", margin: "1rem 0" }}
                         to={`/plantes/${plante.id}`}
-                        key={plante.id}
                     >
                         {plante.name}
                     </Link>

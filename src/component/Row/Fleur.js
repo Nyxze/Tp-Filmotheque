@@ -1,42 +1,63 @@
 import { Link } from "react-router-dom";
-export default function Fleur({ fleur }) {
+import axios from 'axios';
+export default function Fleur({ fleur,setSubmitted }) {
 
 
+  
+    const handleClick = async (e) => {
+
+        try {
+            if (e.target.name === "update") {
+
+                let res = await axios.get("fleurs/" + fleur.id);
+
+            }
+            if (e.target.name === "delete") {
+                await axios.delete("/fleurs/" + fleur.id);
+
+            }
+            setSubmitted(true);
+
+        } catch (err) {
+
+            console.log(err)
+        }
+
+    }
 
     return (
 
         <>
-            <tr>
+         <tr>
                 <td>
 
+                    {fleur.id}
+                </td>
+
+                <td>
                     <Link
                         style={{ display: "block", margin: "1rem 0" }}
-                        to={`/fleur/${fleur.id}`}
+                        to={`/plantes/${fleur.id}`}
                         key={fleur.id}
                     >
-                        {fleur.titre} 
+                        {fleur.name}
                     </Link>
                 </td>
-
                 <td>
-                    {fleur.year}
+                    {fleur.price}
                 </td>
 
                 <td>
-                    {fleur.style.libelle}
+                    {fleur.stock}
                 </td>
 
                 <td>
-                    {`${fleur.realisateur.nom} ${fleur.realisateur.prenom}`}
-                </td>
-                <td>
-
-                </td>
-                <td>
-                    {fleur.vue ? "Oui" : "Non"}
+                    <button name='delete' onClick={handleClick} type="button"> Delete</button>
+                    <button name='update' onClick={handleClick} type="button"> Update</button>
                 </td>
 
             </tr>
+      
         </>
     )
 

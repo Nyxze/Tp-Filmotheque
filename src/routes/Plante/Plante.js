@@ -1,57 +1,83 @@
-import { useParams } from "react-router-dom";
-import PlanteForm from "../../component/Form/PlanteForm";
+import GenericForm from "../../component/Form/GenericForm";
 import PlanteComponenent from "../../component/Row/Plante";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 export default function Plante() {
 
-    const [planteData, setPlanteData] = useState([]);
+    const [planteData, setPlanteData] = useState([
+        {
+            id:"",
+            name: "",
+            price: "",
+            stock: "",
+            infos: "",
+            urlImg: ""
+        }
+    ]);
+    const [isEmpty, setIsEmpty] = useState();
+
     const [isSubmitted, setSubmitted] = useState(false);
-    const [updatePlante,setUpdatePlante] = useState({});
 
     const getPlanteData = async () => {
         const { data } = await axios.get('plantes');
-        setPlanteData(data);
+
+        if (data.length > 0) {
+            setIsEmpty(false);
+            setPlanteData(data);
+        } else {
+            setIsEmpty(true)
+        }
 
     }
 
 
     const createPlanteList = () => {
+            return planteData.map((plante) => {
+                return <PlanteComponenent setSubmitted={setSubmitted} key={plante.id} plante={plante}></PlanteComponenent>
+            })
 
-        return planteData.map((plante) => {
+        
 
-            return <PlanteComponenent setSubmitted={setSubmitted} key={plante.id} plante={plante}></PlanteComponenent>
-        })
     }
+
     useEffect(() => {
         getPlanteData();
         setSubmitted(false);
 
-    }, [isSubmitted, updatePlante]);
+    }, [isSubmitted, isEmpty]);
 
     return (
+
+
         <div>
-            <table className='table'>
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Nom</th>
-                        <th>Tarif</th>
-                        <th>Quantité</th>
-                        <th>
-                            Actions
-                        </th>
+            {isEmpty ? "Aucune plantes" :
 
-                    </tr>
-                </thead>
-                <tbody>
-                    {createPlanteList()}
+                <table className='table'>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nom</th>
+                            <th>Tarif</th>
+                            <th>Quantité</th>
+                            <th>
+                                Actions
+                            </th>
 
-                </tbody>
-            </table>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {createPlanteList()}
 
-            <PlanteForm setUpdatePlante={setUpdatePlante} setSubmitted={setSubmitted} />
+                    </tbody>
+                </table>
+
+
+            }
+            <GenericForm item={planteData} setSubmitted={setSubmitted} urlName="plantes" />
+
+
         </div>
+
     );
 }

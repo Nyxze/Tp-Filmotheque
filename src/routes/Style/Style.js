@@ -6,11 +6,19 @@ export default function Style() {
 
     const [stylesData, setStylesData] = useState([]);
     const [isSubmitted, setSubmitted] = useState(false);
+    const [isEmpty, setIsEmpty] = useState();
 
 
     const getStylesData = async () => {
         const { data } = await axios.get('styles');
-        setStylesData(data);
+
+        if (data.length > 0) {
+            setStylesData(data);
+            setIsEmpty(false);
+        } else {
+            setIsEmpty(true);
+        }
+
 
     }
 
@@ -18,35 +26,37 @@ export default function Style() {
         getStylesData();
         setSubmitted(false);
 
-    }, [isSubmitted]);
+    }, [isSubmitted, isEmpty]);
 
 
     const createStyleList = () => {
 
         return stylesData.map((style) => {
 
-            return <StyleComponent  setSubmitted={setSubmitted} key={style.libelle} style={style}></StyleComponent>
+            return <StyleComponent setSubmitted={setSubmitted} key={style.libelle} style={style}></StyleComponent>
         })
     }
 
 
     return (
         <div >
-                     <h2> Liste des styles </h2>
-            <table className='table'>
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Libelé</th>
-                        <th>Actions</th>
+            <h2> Liste des styles </h2>
+            {isEmpty ? "Aucun styles" :
+                <table className='table'>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Libelé</th>
+                            <th>Actions</th>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    {createStyleList()}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {createStyleList()}
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            }
             <AddStyle setSubmitted={setSubmitted} />
         </div>
     )
