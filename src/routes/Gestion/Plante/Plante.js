@@ -1,10 +1,11 @@
-import GenericForm from "../../component/Form/GenericForm";
-import PlanteComponenent from "../../component/Row/Plante";
+import PlanteForm from "../../../component/Form/Plante";
+import GenericRow from "../../../component/Row/GenericRow";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 export default function Plante() {
 
+    const url ="plantes";
     const [planteData, setPlanteData] = useState([
         {
             id:"",
@@ -15,26 +16,33 @@ export default function Plante() {
             urlImg: ""
         }
     ]);
-    const [isEmpty, setIsEmpty] = useState();
+    const [isEmpty, setIsEmpty] = useState(true);
 
     const [isSubmitted, setSubmitted] = useState(false);
 
     const getPlanteData = async () => {
-        const { data } = await axios.get('plantes');
 
-        if (data.length > 0) {
-            setIsEmpty(false);
-            setPlanteData(data);
-        } else {
+        try{
+            const { data } = await axios.get(url);
+            if (data.length > 0) {
+                setIsEmpty(false);
+                setPlanteData(data);
+            } else {
+                setIsEmpty(true)
+
+            }
+        }catch(err){
             setIsEmpty(true)
+            console.log(err)
         }
+
 
     }
 
 
     const createPlanteList = () => {
             return planteData.map((plante) => {
-                return <PlanteComponenent setSubmitted={setSubmitted} key={plante.id} plante={plante}></PlanteComponenent>
+                return <GenericRow setSubmitted={setSubmitted} key={plante.id} item={plante} url={url}></GenericRow>
             })
 
         
@@ -74,7 +82,7 @@ export default function Plante() {
 
 
             }
-            <GenericForm item={planteData} setSubmitted={setSubmitted} urlName="plantes" />
+            <PlanteForm setSubmitted={setSubmitted} />
 
 
         </div>

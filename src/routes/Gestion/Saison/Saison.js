@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import SaisonComponent from '../../component/Row/Saison';
+import SaisonComponent from '../../../component/Row/Saison';
 import axios from 'axios';
-import AddSaison from '../../component/Input/AddSaison';
+import AddSaison from '../../../component/Input/AddSaison';
 export default function Saison() {
 
     const [seasonData, setseasonData] = useState([]);

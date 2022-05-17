@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import AddStyle from '../../component/Input/AddStyle'
-import StyleComponent from '../../component/Row/Style';
+import AddStyle from '../../../component/Input/AddStyle'
+import StyleComponent from '../../../component/Row/Style';
 import axios from 'axios';
 export default function Style() {
 
