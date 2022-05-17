@@ -12,7 +12,7 @@ export default function Bouquet() {
     let params = useParams();
     const [fleurData, setFleurData] = useState([]);
 
-    const getBouquet = async () => {
+    const getFleur = async () => {
         try {
             let { data } = await axios.get(url + '/' + params.id)
             setFleurData(data);
@@ -24,13 +24,13 @@ export default function Bouquet() {
     }
 
     useEffect(() => {
-        getBouquet()
+        getFleur()
     }, [])
     return (
 
         <Card className="align-items-center" style={{ width: '60%' }}>
             <Card.Body>
-                <Card.Img style={{ width: '15rem' }} variant="top" src="../flower.jpg"></Card.Img>
+                <Card.Img style={{ width: '15rem' }} variant="top" src={fleurData.urlImg}></Card.Img>
                 <Card.Title>{fleurData.name}</Card.Title>
                 <Card.Text>
                     With supporting text below as a natural lead-in to additional content.

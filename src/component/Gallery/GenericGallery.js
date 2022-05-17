@@ -1,4 +1,3 @@
-import { Outlet } from "react-router-dom";
 import Card from "./Card";
 
 export default function Gallery({ name, data }) {
@@ -17,8 +16,12 @@ export default function Gallery({ name, data }) {
 
         <div >
             <h2> Nos {name}</h2>
-            <div className="row">
+            {data.length > 0 ? <div className="row">
                 {buildCard()}
-            </div>
+            </div> : <div>
+
+            Aucun bouquet disponible
+            </div>}
+
         </div>)
 }

@@ -30,7 +30,7 @@ export default function Bouquet() {
 
         <Card className="align-items-center" style={{ width: '60%' }}>
             <Card.Body>
-                <Card.Img style={{ width: '15rem' }} variant="top" src="../flower.jpg"></Card.Img>
+                <Card.Img style={{ width: '15rem' }} variant="top" src={bouquetData.urlImg}></Card.Img>
                 <Card.Title>{bouquetData.name}</Card.Title>
                 <Card.Text>
                    Infos: {bouquetData.infos   }

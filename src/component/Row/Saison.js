@@ -4,20 +4,20 @@ import React, { useState } from 'react';
 export default function Saison({ season, setSubmitted }) {
 
 
-    const [seasonInput, setSeasonInput ] = useState(season.name);
+    const [seasonInput, setSeasonInput] = useState(season.name);
 
 
     const handleClick = async (e) => {
-        console.log(season);
+
         try {
             if (e.target.name === "update") {
                 let newSeason = season;
-                console.log(newSeason);
-                await axios.put("/saisons/" + season.id,newSeason);
+
+                await axios.put("/saisons/" + season.id, newSeason);
 
             }
             if (e.target.name === "delete") {
-                console.log("test");
+
                 await axios.delete("/saisons/" + season.id);
 
             }
@@ -39,7 +39,7 @@ export default function Saison({ season, setSubmitted }) {
 
                 </td>
                 <td>
-                    <input onChange={(e)=>setSeasonInput(e.target.value)} value={seasonInput}/>
+                    <input onChange={(e) => setSeasonInput(e.target.value)} value={seasonInput} />
 
                 </td>
                 <td>

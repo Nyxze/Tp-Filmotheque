@@ -4,18 +4,18 @@ import axios from "axios";
 import Home from './routes/Home';
 import Style from './routes/Gestion/Style/Style';
 import Saison from "./routes/Gestion/Saison/Saison";
-import GestionPlante from "./routes/Gestion/Plante/Plante";
 import PlanteInfo from "./routes/Plantes/PlanteInfo";
 import PlanteUpdate from "./routes/Update/PlanteUpdate";
-import BouquetGallery from "./routes/Bouquets/List"
+import PlanteGallery from "./routes/Plantes/List"
 import BouquetInfo from "./routes/Bouquets/BouquetInfo"
-import GestionBouquet from "./routes/Gestion/Bouquet/Bouquet";
 import BouquetUpdate from "./routes/Update/BouquetUpdate";
-import GestionFleur from "./routes/Gestion/Fleur/Fleur";
+import BouquetGallery from "./routes/Bouquets/List"
 import FleurInfo from "./routes/Fleurs/FleurInfo";
 import FleurUpdate from "./routes/Update/FleurUpdate";
 import FleurGallery from "./routes/Fleurs/List"
-import PlanteGallery from "./routes/Plantes/List"
+import GestionPlante from "./routes/Gestion/Plante/Plante";
+import GestionBouquet from "./routes/Gestion/Bouquet/Bouquet";
+import GestionFleur from "./routes/Gestion/Fleur/Fleur";
 
 function App() {
   axios.defaults.baseURL = "http://localhost:8080/Tp-fleuriste/api/";
@@ -26,7 +26,7 @@ function App() {
 
       <Routes>
         <Route path="/home" element={<Home />} />
-        <Route path="/fleurs:id" element={<FleurInfo />} />
+        <Route path="/fleurs/:id" element={<FleurInfo />} />
         <Route path="/fleurs" element={<FleurGallery />} />
         <Route path="/bouquets/:id" element={<BouquetInfo />} />
         <Route path="/bouquets" element={<BouquetGallery />} />

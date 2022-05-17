@@ -8,7 +8,7 @@ export default function CardTemplate({ item }) {
 
 
         <Card style={{ width: '15%' }}>
-            <Card.Img variant="top" src="../flower.jpg" />
+            <Card.Img variant="top" src={item.urlImg} />
             <Card.Body>
                 <Card.Title>{item.name}</Card.Title>
                 <Card.Text>

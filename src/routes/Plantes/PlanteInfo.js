@@ -8,14 +8,14 @@ import { useParams } from "react-router";
 
 export default function Bouquet() {
 
-    let url = 'bouquets'
+    let url = 'plantes'
     let params = useParams();
-    const [bouquetData, setBouquetData] = useState([]);
+    const [planteData, setPlanteData] = useState([]);
 
     const getBouquet = async () => {
         try {
             let { data } = await axios.get(url + '/' + params.id)
-            setBouquetData(data);
+            setPlanteData(data);
             console.log(data);
 
         } catch (err) {
@@ -30,8 +30,8 @@ export default function Bouquet() {
 
         <Card className="align-items-center" style={{ width: '60%' }}>
             <Card.Body>
-                <Card.Img style={{ width: '15rem' }} variant="top" src="../flower.jpg"></Card.Img>
-                <Card.Title>{bouquetData.name}</Card.Title>
+                <Card.Img style={{ width: '15rem' }} variant="top" src={planteData.urlImg}></Card.Img>
+                <Card.Title>{planteData.name}</Card.Title>
                 <Card.Text>
                     With supporting text below as a natural lead-in to additional content.
                 </Card.Text>

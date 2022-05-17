@@ -19,7 +19,7 @@ function NavbarMain() {
                             <Nav.Link as={Link} to={"/home"}>Acceuil</Nav.Link>
                             <Nav.Link as={Link} to={"/bouquets"}>Bouquets</Nav.Link>
                             <Nav.Link as={Link} to={"/fleurs"}>Fleurs</Nav.Link>
-                            <Nav.Link as={Link} to={"/pantes"}>Plantes</Nav.Link>
+                            <Nav.Link as={Link} to={"/plantes"}>Plantes</Nav.Link>
                         </Nav>
                         <Dropdown>
                             <Dropdown.Toggle id="dropdown-basic">
