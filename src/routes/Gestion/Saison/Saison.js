@@ -20,6 +20,20 @@ export default function Saison() {
         }
 
     }
+    const handleSorting = (sortField, sortOrder) => {
+        console.log(seasonData)
+        if (sortField) {
+            const sorted = [...seasonData].sort((a, b) => {
+                return (
+                    a[sortField].toString().localeCompare(b[sortField].toString(), "en", {
+                        numeric: true,
+                    }) * (sortOrder === "asc" ? 1 : -1)
+                );
+            });
+            setseasonData(sorted);
+        }
+    };
+
 
     useEffect(() => {
         getStylesData();
@@ -44,8 +58,8 @@ export default function Saison() {
             <table className='table'>
                 <thead>
                     <tr>
-                        <GenericTh name="Id"/>
-                        <GenericTh name="Libelé"/>
+                        <GenericTh handleSorting={handleSorting} value="id" name="Id"/>
+                        <GenericTh handleSorting={handleSorting} value="name"name="Nom"/>
                         <GenericTh name="Actions" isSortable={false}/>
 
                     </tr>

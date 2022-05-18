@@ -22,9 +22,6 @@ export default function Plante() {
 
     const [isSubmitted, setSubmitted] = useState(false);
 
-    const sortBy = () => {
-        console.log(planteData);
-    }
 
     const getPlanteData = async () => {
 
@@ -44,6 +41,20 @@ export default function Plante() {
 
 
     }
+
+    const handleSorting = (sortField, sortOrder) => {
+
+        if (sortField) {
+            const sorted = [...planteData].sort((a, b) => {
+                return (
+                    a[sortField].toString().localeCompare(b[sortField].toString(), "en", {
+                        numeric: true,
+                    }) * (sortOrder === "asc" ? 1 : -1)
+                );
+            });
+            setPlanteData(sorted);
+        }
+    };
 
 
     const createPlanteList = () => {
@@ -70,10 +81,10 @@ export default function Plante() {
                 <table className='table'>
                     <thead>
                         <tr>
-                        <GenericTh name="Id"/>
-                        <GenericTh name="Nom" />
-                        <GenericTh name="Quantité" />
-                        <GenericTh name="Stock" />
+                        <GenericTh handleSorting={handleSorting}  value="id" name="Id"/>
+                        <GenericTh handleSorting={handleSorting} value="name" name="Nom" />
+                        <GenericTh handleSorting={handleSorting} value="price" name="Price" />
+                        <GenericTh handleSorting={handleSorting} value ="stock" name="Stock" />
                         <GenericTh name="Actions" isSortable={false} />
                         </tr>
                     </thead>

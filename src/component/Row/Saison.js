@@ -11,9 +11,10 @@ export default function Saison({ season, setSubmitted }) {
 
         try {
             if (e.target.name === "update") {
-                let newSeason = season;
+                season.name = seasonInput;
+                console.log(season);
 
-                await axios.put("/saisons/" + season.id, newSeason);
+                await axios.put("/saisons/" + season.id, season);
 
             }
             if (e.target.name === "delete") {

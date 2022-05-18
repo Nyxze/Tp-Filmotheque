@@ -8,7 +8,7 @@ export default function Fleur() {
 
     const url = "fleurs";
 
-    const [planteData, setPlanteData] = useState([
+    const [fleurData, setFleurData] = useState([
         {
             id: "",
             name: "",
@@ -24,13 +24,13 @@ export default function Fleur() {
 
     const [isSubmitted, setSubmitted] = useState(false);
 
-    const getPlanteData = async () => {
+    const getfleurData = async () => {
 
         try {
             const { data } = await axios.get(url);
             if (data.length > 0) {
                 setIsEmpty(false);
-                setPlanteData(data);
+                setFleurData(data);
             } else {
                 setIsEmpty(true)
 
@@ -43,9 +43,40 @@ export default function Fleur() {
 
     }
 
+    const handleSorting = (sortField, sortOrder) => {
+
+        if (sortField) {
+            const sorted = [...fleurData].sort((a, b) => {
+                return (
+                    a[sortField].toString().localeCompare(b[sortField].toString(), "en", {
+                        numeric: true,
+                    }) * (sortOrder === "asc" ? 1 : -1)
+                );
+            });
+            setFleurData(sorted);
+        }
+    };
+
+    const handleSortingSeason = (sortField, sortOrder) => {
+        console.log(sortField)
+        console.log(sortOrder);
+        if (sortField) {
+            const sorted = [...fleurData].sort((a, b) => {
+                if (a.season.name < b.season.name) {
+                    return sortOrder === "asc" ? -1 : 1;
+                }
+                if (a.season.name > b.season.name) {
+                    return sortOrder === "asc" ? 1 : -1;
+                }
+                return 0;
+            });
+            console.log(sorted)
+            setFleurData(sorted);
+        }
+    };
 
     const createFleurList = () => {
-        return planteData.map((fleur) => {
+        return fleurData.map((fleur) => {
             return <GenericRow setSubmitted={setSubmitted} key={fleur.id} item={fleur} url={url}></GenericRow>
         })
 
@@ -54,7 +85,7 @@ export default function Fleur() {
     }
 
     useEffect(() => {
-        getPlanteData();
+        getfleurData();
         setSubmitted(false);
 
     }, [isSubmitted, isEmpty]);
@@ -68,13 +99,13 @@ export default function Fleur() {
                 <table className='table'>
                     <thead>
                         <tr>
-                        <GenericTh name="Id" />
-                        <GenericTh name="Nom" />
-                        <GenericTh name="Price" />
-                        <GenericTh name="Stock" />
-                        <GenericTh name="Saison" />
-                        <GenericTh name="Action" isSortable={false} />
-                            
+                            <GenericTh handleSorting={handleSorting} value="id" name="Id" />
+                            <GenericTh handleSorting={handleSorting} value="name" name="Nom" />
+                            <GenericTh handleSorting={handleSorting} value="price" name="Price" />
+                            <GenericTh handleSorting={handleSorting} value="stock" name="Stock" />
+                            <GenericTh handleSorting={handleSortingSeason} value="season" name="Saison" />
+                            <GenericTh name="Action" isSortable={false} />
+
 
 
                         </tr>
@@ -87,7 +118,7 @@ export default function Fleur() {
 
 
             }
-<FleurForm setSubmitted={setSubmitted} />
+            <FleurForm setSubmitted={setSubmitted} />
 
 
         </div >

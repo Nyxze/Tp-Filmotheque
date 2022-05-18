@@ -22,6 +22,20 @@ export default function Style() {
 
 
     }
+    const handleSorting = (sortField, sortOrder) => {
+    
+        if (sortField) {
+            const sorted = [...stylesData].sort((a, b) => {
+                return (
+                    a[sortField].toString().localeCompare(b[sortField].toString(), "en", {
+                        numeric: true,
+                    }) * (sortOrder === "asc" ? 1 : -1)
+                );
+            });
+            setStylesData(sorted);
+        }
+    };
+
 
     useEffect(() => {
         getStylesData();
@@ -46,8 +60,8 @@ export default function Style() {
                 <table className='table'>
                     <thead>
                         <tr>
-                        <GenericTh name="Id"/>
-                        <GenericTh name="Libelé"/>
+                        <GenericTh handleSorting={handleSorting} value="id" name="Id"/>
+                        <GenericTh handleSorting={handleSorting} value="libelle"name="Libelé"/>
                         <GenericTh name="Actions" isSortable={false}/>
 
                         </tr>

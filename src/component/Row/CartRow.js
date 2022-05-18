@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 import axios from 'axios';
 export default function GenericRow({ item, setSubmitted, url }) {
-
-    console.log(item);
     const handleDelete = async (e) => {
 
         try {
@@ -17,7 +15,7 @@ export default function GenericRow({ item, setSubmitted, url }) {
 
     }
 
-  
+
 
 
     return (
@@ -29,7 +27,7 @@ export default function GenericRow({ item, setSubmitted, url }) {
                 <td className="d-flex">
 
                     <img alt="" style={{
-                        
+
                         width: "10%",
                         height: "10%",
                     }} src={item.product.urlImg} />
@@ -43,24 +41,19 @@ export default function GenericRow({ item, setSubmitted, url }) {
 
 
                 <td>
-                {item.product.price}
+                    {item.product.price}
                 </td>
                 <td>
-                   {item.quantity}
+                    {item.quantity}
                 </td>
                 <td>
-                   {item.linePrice}
+                    {item.linePrice}
                 </td>
 
 
 
                 <td>
                     <button name='delete' onClick={handleDelete} type="button"> Delete</button>
-                    <Link to={`/update/${url}/${item.id}`}>
-                        <button name='update' type="button"> Update</button>
-                    </Link>
-
-
 
                 </td>
 

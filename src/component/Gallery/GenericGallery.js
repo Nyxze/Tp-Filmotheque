@@ -20,7 +20,7 @@ export default function Gallery({ name, data }) {
                 {buildCard()}
             </div> : <div>
 
-            Aucun bouquet disponible
+            Pas de  {name} disponible
             </div>}
 
         </div>)

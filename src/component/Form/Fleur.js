@@ -31,6 +31,11 @@ export default function FleurForm({ setSubmitted }) {
 
     }
 
+    const isValid = () => {
+        console.log(seasonSelect.id);
+        return (seasonSelect.id ) && (seasonSelect.id !== "0")
+    }
+
 
 
     const getSeason = async () => {
@@ -81,12 +86,19 @@ export default function FleurForm({ setSubmitted }) {
 
                 <div className='m-2 col-8 d-inline-flex align-items-center'>
                     <Form.Label className='m-2' >Saison</Form.Label>
-                    <Form.Select onChange={handleSeasonChange} name="season" aria-label="Default select example">
-                        <option>Default value</option>
-                        {seasonOption()}
+                    <Form.Select disabled={(seasonData.length? false:true)} onChange={handleSeasonChange} name="season" aria-label="Default select example">
+                    {seasonData.length ?
+                            seasonOption()
+                            :
+                            <option>--Pas de saison disponible--</option>
+                        }
+                        {seasonSelect ?
+                            <option value={0}>--Select a season--</option> :
+                            ""
+                        }
                     </Form.Select>
                 </div>
-                <Button type="submit">
+                <Button disabled={(isValid() ? false : true)} type="submit">
                     Ajouter
                 </Button>
 

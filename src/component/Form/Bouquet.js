@@ -4,26 +4,30 @@ import Button from 'react-bootstrap/Button';
 import FormInput from '../Input/FormInput';
 import axios from 'axios';
 
-export default function BouquetForm({ setSubmitted,isUpdate}) {
+export default function BouquetForm({ setSubmitted }) {
     const url = "bouquets";
     const [bouquetFormData, setBouquetFormData] = useState({});
     const [seasonData, setSeasonData] = useState([]);
-    const [seasonSelect, setSeasonSelect] = useState({});
-    const [styleData, setStyleData] = useState([] );
-    const [styleSelect, setStyleSelect] = useState({});
+    const [seasonSelect, setSeasonSelect] = useState({
+
+    });
+    const [styleData, setStyleData] = useState([]);
+    const [styleSelect, setStyleSelect] = useState({
+
+    });
 
 
-    
+
     function handleChange(event) {
-            const { name, value } = event.target;
-            setBouquetFormData(prevFormData => {
-                return {
-                    ...prevFormData,
-                    [name]: value
-                }
+        const { name, value } = event.target;
+        setBouquetFormData(prevFormData => {
+            return {
+                ...prevFormData,
+                [name]: value
+            }
 
-            })
-        
+        })
+
 
     }
     function handleSeasonChange(e) {
@@ -41,6 +45,9 @@ export default function BouquetForm({ setSubmitted,isUpdate}) {
 
     }
 
+    const isValid = () => {
+        return (seasonSelect.id && styleSelect.id) && (seasonSelect.id !== "0" && styleSelect.id !== "0")
+    }
 
 
     const getSeason = async () => {
@@ -63,7 +70,9 @@ export default function BouquetForm({ setSubmitted,isUpdate}) {
     }
     const seasonOption = () => {
 
-        return seasonData.map(season => <option value={season.id} key={season.name}>{season.name}</option>)
+        return (
+            seasonData.map(season => <option value={season.id} key={season.name}>{season.name}</option>)
+        )
     }
     const styleOption = () => {
 
@@ -88,6 +97,7 @@ export default function BouquetForm({ setSubmitted,isUpdate}) {
 
     }
 
+
     useEffect(() => {
         getSeason();
         getStyle();
@@ -96,31 +106,48 @@ export default function BouquetForm({ setSubmitted,isUpdate}) {
     return (
         <Form onSubmit={handleSubmit} className='form-row'>
             <Form.Group>
-                <FormInput  onChange={handleChange} name="name" type="text" title="Nom"></FormInput>
-                <FormInput  onChange={handleChange} name="price" type="number" title="Prix"></FormInput>
-                <FormInput  onChange={handleChange} name="stock" type="number" title="Quantité"></FormInput>
-                <FormInput  onChange={handleChange} name="infos" type="textarea" title="Informations"></FormInput>
-                <FormInput  onChange={handleChange} name="urlImg" type="text" title="Url de l'image"></FormInput>
-                <FormInput  onChange={handleChange} name="color" type="text" title="Couleur"></FormInput>
+                <FormInput onChange={handleChange} name="name" type="text" title="Nom"></FormInput>
+                <FormInput onChange={handleChange} name="price" type="number" title="Prix"></FormInput>
+                <FormInput onChange={handleChange} name="stock" type="number" title="Quantité"></FormInput>
+                <FormInput onChange={handleChange} name="infos" type="textarea" title="Informations"></FormInput>
+                <FormInput onChange={handleChange} name="urlImg" type="text" title="Url de l'image"></FormInput>
+                <FormInput onChange={handleChange} name="color" type="text" title="Couleur"></FormInput>
 
 
                 <div className='m-2 col-8 d-inline-flex align-items-center'>
                     <Form.Label className='m-2' >Saison</Form.Label>
-                    <Form.Select onChange={handleSeasonChange} name="season" aria-label="Default select example">
-                        <option>Default value</option>
-                        {seasonOption()}
+                    <Form.Select disabled={(seasonData.length ? false : true)} onChange={handleSeasonChange} name="season" aria-label="Default select example">
+                        {seasonData.length ?
+                            seasonOption()
+                            :
+                            <option>--Pas de saison disponible--</option>
+                        }
+                        {seasonSelect ?
+                            <option value={0}>--Select a season--</option> :
+                            ""
+                        }
+
                     </Form.Select>
                 </div>
                 <div className='m-2 col-8 d-inline-flex align-items-center'>
                     <Form.Label className='m-2' >Style</Form.Label>
-                    <Form.Select onChange={handleStyleChange} name="style" aria-label="Default select example">
-                        <option>Default value</option>
-                        {styleOption()}
+                    <Form.Select disabled={(styleData.length ? false : true)} onChange={handleStyleChange} name="style" aria-label="Default select example">
+                        {styleData.length ?
+                            styleOption()
+                            :
+                            <option>--Pas de style disponible--</option>
+                        }
+                        {styleSelect ?
+                            <option value={0}>--Select a style--</option> :
+                            ""
+                        }
+
+
                     </Form.Select>
                 </div>
-                
-                <Button type="submit">
-                   {isUpdate? "Modifier":"Ajouter"} 
+
+                <Button disabled={(isValid() ? false : true)} type="submit">
+                    Ajouter
                 </Button>
 
             </Form.Group>

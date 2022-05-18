@@ -10,21 +10,29 @@ export default function Cart() {
 
     const [cartItemData, setCartItemData] = useState([
         {
-         
+
         }
     ]);
 
- 
+
     const [isEmpty, setIsEmpty] = useState(true);
 
     const [isSubmitted, setSubmitted] = useState(false);
 
-    const getPlanteData = async () => {
+    const totalPrice = () => {
+
+        let res = cartItemData.reduce((acc, obj) => {
+            return acc + obj.linePrice
+        }, 0)
+
+        return " " +  res
+    }
+
+    const getCartData = async () => {
 
         try {
             const { data } = await axios.get(url);
             if (data.length > 0) {
-                console.log(data);
                 setIsEmpty(false);
                 setCartItemData(data);
             } else {
@@ -40,7 +48,7 @@ export default function Cart() {
     }
 
 
-    const createBouquetList = () => {
+    const createCartItemList = () => {
         return cartItemData.map((cartItem) => {
             return <CartRow setSubmitted={setSubmitted} key={cartItem.id} item={cartItem} url={url}  ></CartRow>
         })
@@ -50,7 +58,7 @@ export default function Cart() {
     }
 
     useEffect(() => {
-        getPlanteData();
+        getCartData();
         setSubmitted(false);
 
     }, [isSubmitted, isEmpty]);
@@ -58,34 +66,42 @@ export default function Cart() {
     return (
 
 
-        <div>
-            {isEmpty ? "Panier Vide" :
-
-                <table className='table'>
-                    <thead>
-                        <tr>
-                            <th>Produit</th>
-                            <th>Price u</th>
-                            <th>Quantity</th>
-                            <th>
-                                Total
-                            </th>
+        <>
+            {isEmpty ? "Panier vide" :
+                <div>
 
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {createBouquetList()}
+                    <table className='table'>
+                        <thead>
+                            <tr>
+                                <th>Produit</th>
+                                <th>Price u</th>
+                                <th>Quantity</th>
+                                <th>
+                                    Total
+                                </th>
 
-                    </tbody>
-                </table>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {createCartItemList()}
+                        </tbody>
+
+                    </table>
+
+                    <div className="d-flex justify-content-end col-10">
+                    Total:{totalPrice()}
+                    </div>
+                </div>
+
 
 
             }
-     
 
 
-        </div>
+
+        </>
 
     );
 }
