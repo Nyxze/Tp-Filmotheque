@@ -1,3 +1,4 @@
+import GenericTh from "../../../component/Table/GenericTh";
 import PlanteForm from "../../../component/Form/Plante";
 import GenericRow from "../../../component/Row/GenericRow";
 import axios from "axios";
@@ -5,10 +6,11 @@ import { useEffect, useState } from "react";
 
 export default function Plante() {
 
-    const url ="plantes";
+
+    const url = "plantes";
     const [planteData, setPlanteData] = useState([
         {
-            id:"",
+            id: "",
             name: "",
             price: "",
             stock: "",
@@ -20,9 +22,13 @@ export default function Plante() {
 
     const [isSubmitted, setSubmitted] = useState(false);
 
+    const sortBy = () => {
+        console.log(planteData);
+    }
+
     const getPlanteData = async () => {
 
-        try{
+        try {
             const { data } = await axios.get(url);
             if (data.length > 0) {
                 setIsEmpty(false);
@@ -31,7 +37,7 @@ export default function Plante() {
                 setIsEmpty(true)
 
             }
-        }catch(err){
+        } catch (err) {
             setIsEmpty(true)
             console.log(err)
         }
@@ -41,11 +47,11 @@ export default function Plante() {
 
 
     const createPlanteList = () => {
-            return planteData.map((plante) => {
-                return <GenericRow setSubmitted={setSubmitted} key={plante.id} item={plante} url={url}></GenericRow>
-            })
+        return planteData.map((plante) => {
+            return <GenericRow setSubmitted={setSubmitted} key={plante.id} item={plante} url={url}></GenericRow>
+        })
 
-        
+
 
     }
 
@@ -64,14 +70,11 @@ export default function Plante() {
                 <table className='table'>
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Nom</th>
-                            <th>Tarif</th>
-                            <th>Quantité</th>
-                            <th>
-                                Actions
-                            </th>
-
+                        <GenericTh name="Id"/>
+                        <GenericTh name="Nom" />
+                        <GenericTh name="Quantité" />
+                        <GenericTh name="Stock" />
+                        <GenericTh name="Actions" isSortable={false} />
                         </tr>
                     </thead>
                     <tbody>
@@ -85,7 +88,7 @@ export default function Plante() {
             <PlanteForm setSubmitted={setSubmitted} />
 
 
-        </div>
+        </div >
 
     );
 }

@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import axios from 'axios';
-export default function GenericRow({ item, setSubmitted, url,quantity }) {
+export default function GenericRow({ item, setSubmitted, url }) {
 
+    console.log(item);
     const handleDelete = async (e) => {
 
         try {
@@ -16,57 +17,40 @@ export default function GenericRow({ item, setSubmitted, url,quantity }) {
 
     }
 
+  
+
 
     return (
 
         <>
             <tr key={item.id}>
 
-                {quantity
-                    ?
-                    <td>
-                        {quantity}
-                    </td>
-                    :
-                    <td>
 
-                        {item.id}
-                    </td>
+                <td className="d-flex">
 
-                }
-
-
-
-                <td>
+                    <img alt="" style={{
+                        
+                        width: "10%",
+                        height: "10%",
+                    }} src={item.product.urlImg} />
                     <Link
                         style={{ display: "block", margin: "1rem 0" }}
-                        to={`${url}/${item.id}`}
+                        to={`${item.id}`}
                     >
-                        {item.name}
+                        {item.product.name}
                     </Link>
                 </td>
-                <td>
-                    {item.price}
-                </td>
+
 
                 <td>
-                    {item.stock}
+                {item.product.price}
                 </td>
-
-                {item.season
-                    ? <td>
-                        {item.season.name}
-                    </td>
-                    : ""
-                }
-
-                {item.style
-                    ? <td>
-                        {item.style.libelle}
-                    </td>
-                    : ""
-                }
-
+                <td>
+                   {item.quantity}
+                </td>
+                <td>
+                   {item.linePrice}
+                </td>
 
 
 

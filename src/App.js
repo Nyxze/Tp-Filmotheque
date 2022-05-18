@@ -2,6 +2,8 @@ import { Routes, Route } from "react-router-dom";
 import './App.css';
 import axios from "axios";
 import Home from './routes/Home';
+import Cart from "./routes/Cart/Cart"
+import CartInfo from "./routes/Cart/CartInfo"
 import Style from './routes/Gestion/Style/Style';
 import Saison from "./routes/Gestion/Saison/Saison";
 import PlanteInfo from "./routes/Plantes/PlanteInfo";
@@ -26,6 +28,8 @@ function App() {
 
       <Routes>
         <Route path="/home" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/cart/:id" element={<CartInfo />} />
         <Route path="/fleurs/:id" element={<FleurInfo />} />
         <Route path="/fleurs" element={<FleurGallery />} />
         <Route path="/bouquets/:id" element={<BouquetInfo />} />

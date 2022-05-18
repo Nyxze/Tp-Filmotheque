@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SaisonComponent from '../../../component/Row/Saison';
+import GenericTh from "../../../component/Table/GenericTh";
 import axios from 'axios';
 import AddSaison from '../../../component/Input/AddSaison';
 export default function Saison() {
@@ -43,9 +44,9 @@ export default function Saison() {
             <table className='table'>
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Libelé</th>
-                        <th>Actions</th>
+                        <GenericTh name="Id"/>
+                        <GenericTh name="Libelé"/>
+                        <GenericTh name="Actions" isSortable={false}/>
 
                     </tr>
                 </thead>

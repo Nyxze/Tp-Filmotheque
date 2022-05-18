@@ -1,11 +1,12 @@
 import FleurForm from "../../../component/Form/Fleur";
 import GenericRow from "../../../component/Row/GenericRow";
+import GenericTh from "../../../component/Table/GenericTh"
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 export default function Fleur() {
 
-    const url= "fleurs";
+    const url = "fleurs";
 
     const [planteData, setPlanteData] = useState([
         {
@@ -15,8 +16,8 @@ export default function Fleur() {
             stock: "",
             infos: "",
             urlImg: "",
-            season:"",
-            color:""
+            season: "",
+            color: ""
         }
     ]);
     const [isEmpty, setIsEmpty] = useState(true);
@@ -67,16 +68,13 @@ export default function Fleur() {
                 <table className='table'>
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Nom</th>
-                            <th>Tarif</th>
-                            <th>Quantité</th>
-                            <th>
-                                Saison
-                            </th>
-                            <th>
-                                Actions
-                            </th>
+                        <GenericTh name="Id" />
+                        <GenericTh name="Nom" />
+                        <GenericTh name="Price" />
+                        <GenericTh name="Stock" />
+                        <GenericTh name="Saison" />
+                        <GenericTh name="Action" isSortable={false} />
+                            
 
 
                         </tr>
@@ -89,10 +87,10 @@ export default function Fleur() {
 
 
             }
-            <FleurForm setSubmitted={setSubmitted} />
+<FleurForm setSubmitted={setSubmitted} />
 
 
-        </div>
+        </div >
 
     );
 }

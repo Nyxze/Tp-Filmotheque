@@ -1,5 +1,6 @@
 
 import GenericRow from "../../../component/Row/GenericRow";
+import GenericTh from "../../../component/Table/GenericTh";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import BouquetForm from "../../../component/Form/Bouquet";
@@ -27,6 +28,11 @@ export default function Bouquet() {
 
     const [isSubmitted, setSubmitted] = useState(false);
 
+
+    const sortBy = ()=> {
+        console.log(bouquetData);
+    }
+
     const getPlanteData = async () => {
 
         try {
@@ -49,7 +55,7 @@ export default function Bouquet() {
 
     const createBouquetList = () => {
         return bouquetData.map((bouquet) => {
-            return <GenericRow setSubmitted={setSubmitted} key={bouquet.id} item={bouquet} url={url} setData ></GenericRow>
+            return <GenericRow setSubmitted={setSubmitted} key={bouquet.id} item={bouquet} url={url}></GenericRow>
         })
 
 
@@ -71,18 +77,14 @@ export default function Bouquet() {
                 <table className='table'>
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Nom</th>
-                            <th>Tarif</th>
-                            <th>Quantité</th>
-                            <th>
-                                Saison
-                            </th>
-                            <th>Stlye</th>
+                        <GenericTh onClick={sortBy} name="Id"/>
+                        <GenericTh name="Nom"/>
+                        <GenericTh name="Tarifs"/>
+                        <GenericTh name="Quantité"/>
+                        <GenericTh name="Saison"/>
+                        <GenericTh name="Style"/>
 
-                            <th>
-                                Actions
-                            </th>
+                        <GenericTh name="Actions" isSortable={false}/>
 
 
                         </tr>

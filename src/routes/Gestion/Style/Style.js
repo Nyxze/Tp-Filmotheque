@@ -1,3 +1,4 @@
+import GenericTh from "../../../component/Table/GenericTh";
 import React, { useState, useEffect } from 'react';
 import AddStyle from '../../../component/Input/AddStyle'
 import StyleComponent from '../../../component/Row/Style';
@@ -45,9 +46,9 @@ export default function Style() {
                 <table className='table'>
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Libelé</th>
-                            <th>Actions</th>
+                        <GenericTh name="Id"/>
+                        <GenericTh name="Libelé"/>
+                        <GenericTh name="Actions" isSortable={false}/>
 
                         </tr>
                     </thead>

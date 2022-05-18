@@ -11,6 +11,12 @@ export default function Bouquet() {
     let url = 'plantes'
     let params = useParams();
     const [planteData, setPlanteData] = useState([]);
+    const [quantity,setQuantity] = useState(1);
+
+    const handleChange = (e) =>{
+
+        setQuantity(e.target.value)
+    }
 
     const getBouquet = async () => {
         try {
@@ -35,10 +41,10 @@ export default function Bouquet() {
                 <Card.Text>
                     With supporting text below as a natural lead-in to additional content.
                 </Card.Text>
-                <Form.Select name="quantity" aria-label="Default select example">
-                    <option>Default value</option>
-
-                </Form.Select>
+                <label>
+                    Quantity
+                </label>
+              <input onChange={handleChange} placeholder ="1" min="1" type="number"/>
                 <Button className="mt-2" variant="primary">Ajouter au pannier</Button>
             </Card.Body>
         </Card>

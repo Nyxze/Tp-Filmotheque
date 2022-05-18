@@ -55,7 +55,7 @@ export default function BouquetForm({ setSubmitted,isUpdate}) {
     const getStyle = async () => {
 
         try {
-            const { data } = await axios.get('saisons');
+            const { data } = await axios.get('styles');
             setStyleData(data);
         } catch (err) {
             console.log(err)
@@ -67,7 +67,7 @@ export default function BouquetForm({ setSubmitted,isUpdate}) {
     }
     const styleOption = () => {
 
-        return styleData.map(style => <option value={style.id} key={style.name}>{style.name}</option>)
+        return styleData.map(style => <option value={style.id} key={style.libelle}>{style.libelle}</option>)
     }
 
 
