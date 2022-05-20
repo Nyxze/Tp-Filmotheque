@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import './App.css';
 import axios from "axios";
+import Navbar from './component/Navbar';
 import Home from './routes/Home';
 import Cart from "./routes/Cart/Cart"
 import CartInfo from "./routes/Cart/CartInfo"
@@ -18,15 +19,25 @@ import FleurGallery from "./routes/Fleurs/List"
 import GestionPlante from "./routes/Gestion/Plante/Plante";
 import GestionBouquet from "./routes/Gestion/Bouquet/Bouquet";
 import GestionFleur from "./routes/Gestion/Fleur/Fleur";
+import Register from "./routes/Register/Register";
+import Login from "./routes/Register/Login";
+import { useState } from "react";
 
 function App() {
   axios.defaults.baseURL = "http://localhost:8080/Tp-fleuriste/api/";
+  axios.defaults.withCredentials = true;
 
-
+  const [loggedIn, setLoggedIn] = useState(sessionStorage.getItem("user")? true:false);
+ 
   return (
     <div className="App container-fluid">
+      <Navbar loggedIn= {loggedIn} setLoggedIn={setLoggedIn}/>
+      <div className="row justify-content-center mt-5 p-3" >
+
 
       <Routes>
+        <Route path="/register" element={<Register/>}></Route>
+        <Route path="/login" element={<Login loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}></Route>
         <Route path="/home" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/cart/:id" element={<CartInfo />} />
@@ -62,6 +73,7 @@ function App() {
 
         </Route>
       </Routes>
+      </div>
 
     </div >
   );

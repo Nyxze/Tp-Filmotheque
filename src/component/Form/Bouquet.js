@@ -2,16 +2,15 @@ import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import FormInput from '../Input/FormInput';
+import SeasonSelect from '../Select/SeasonSelect';
+import StyleSelect from '../Select/StyleSelect';
 import axios from 'axios';
 
 export default function BouquetForm({ setSubmitted }) {
     const url = "bouquets";
     const [bouquetFormData, setBouquetFormData] = useState({});
-    const [seasonData, setSeasonData] = useState([]);
     const [seasonSelect, setSeasonSelect] = useState({
-
     });
-    const [styleData, setStyleData] = useState([]);
     const [styleSelect, setStyleSelect] = useState({
 
     });
@@ -30,53 +29,10 @@ export default function BouquetForm({ setSubmitted }) {
 
 
     }
-    function handleSeasonChange(e) {
-        setSeasonSelect({
-            id: e.target.value
-        })
-
-
-    }
-    function handleStyleChange(e) {
-        setStyleSelect({
-            id: e.target.value
-        })
-
-
-    }
 
     const isValid = () => {
+        console.log(seasonSelect.id)
         return (seasonSelect.id && styleSelect.id) && (seasonSelect.id !== "0" && styleSelect.id !== "0")
-    }
-
-
-    const getSeason = async () => {
-
-        try {
-            const { data } = await axios.get('saisons');
-            setSeasonData(data);
-        } catch (err) {
-            console.log(err)
-        }
-    }
-    const getStyle = async () => {
-
-        try {
-            const { data } = await axios.get('styles');
-            setStyleData(data);
-        } catch (err) {
-            console.log(err)
-        }
-    }
-    const seasonOption = () => {
-
-        return (
-            seasonData.map(season => <option value={season.id} key={season.name}>{season.name}</option>)
-        )
-    }
-    const styleOption = () => {
-
-        return styleData.map(style => <option value={style.id} key={style.libelle}>{style.libelle}</option>)
     }
 
 
@@ -98,11 +54,6 @@ export default function BouquetForm({ setSubmitted }) {
     }
 
 
-    useEffect(() => {
-        getSeason();
-        getStyle();
-    }, []);
-
     return (
         <Form onSubmit={handleSubmit} className='form-row'>
             <Form.Group>
@@ -112,40 +63,8 @@ export default function BouquetForm({ setSubmitted }) {
                 <FormInput onChange={handleChange} name="infos" type="textarea" title="Informations"></FormInput>
                 <FormInput onChange={handleChange} name="urlImg" type="text" title="Url de l'image"></FormInput>
                 <FormInput onChange={handleChange} name="color" type="text" title="Couleur"></FormInput>
-
-
-                <div className='m-2 col-8 d-inline-flex align-items-center'>
-                    <Form.Label className='m-2' >Saison</Form.Label>
-                    <Form.Select disabled={(seasonData.length ? false : true)} onChange={handleSeasonChange} name="season" aria-label="Default select example">
-                        {seasonData.length ?
-                            seasonOption()
-                            :
-                            <option>--Pas de saison disponible--</option>
-                        }
-                        {seasonSelect ?
-                            <option value={0}>--Select a season--</option> :
-                            ""
-                        }
-
-                    </Form.Select>
-                </div>
-                <div className='m-2 col-8 d-inline-flex align-items-center'>
-                    <Form.Label className='m-2' >Style</Form.Label>
-                    <Form.Select disabled={(styleData.length ? false : true)} onChange={handleStyleChange} name="style" aria-label="Default select example">
-                        {styleData.length ?
-                            styleOption()
-                            :
-                            <option>--Pas de style disponible--</option>
-                        }
-                        {styleSelect ?
-                            <option value={0}>--Select a style--</option> :
-                            ""
-                        }
-
-
-                    </Form.Select>
-                </div>
-
+                <SeasonSelect seasonSelect={seasonSelect} setSeasonSelect={setSeasonSelect}></SeasonSelect>
+                <StyleSelect styleSelect={styleSelect} setStyleSelect={setStyleSelect}></StyleSelect>
                 <Button disabled={(isValid() ? false : true)} type="submit">
                     Ajouter
                 </Button>

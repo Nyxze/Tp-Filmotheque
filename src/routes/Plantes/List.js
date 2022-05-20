@@ -1,16 +1,17 @@
 import Gallery from "../../component/Gallery/GenericGallery"
+import FilterCardPlante from "../../component/Filter/FilterCardPlante"
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 
 export default function Bouquet() {
 
-let url = 'plantes'
-    const [bouquetData, setBouquetData] = useState([]);
+    let url = 'plantes'
+    const [plantesData, setPlanteData] = useState([]);
     const getBouquet = async () => {
         try {
             let { data } = await axios.get(url)
-            setBouquetData(data);
+            setPlanteData(data);
             console.log(data);
 
         } catch (err) {
@@ -20,11 +21,19 @@ let url = 'plantes'
 
     useEffect(() => {
         getBouquet()
-    },[])
+    }, [])
     return (
 
-        <div>
-            <Gallery data={bouquetData} name={url}></Gallery>
+
+
+
+
+        <div className="d-flex">
+            
+            <FilterCardPlante url={url} setData={setPlanteData}></FilterCardPlante>
+        
+            <Gallery data={plantesData} name={url}></Gallery>
         </div>
+
     )
 }

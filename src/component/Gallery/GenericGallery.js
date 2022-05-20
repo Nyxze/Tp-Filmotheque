@@ -2,7 +2,6 @@ import Card from "./Card";
 
 export default function Gallery({ name, data }) {
 
-    console.log(data);
 
     const buildCard = () => {
 
@@ -14,14 +13,19 @@ export default function Gallery({ name, data }) {
 
     return (
 
-        <div >
+        <div className="container mt-5 mb-3">
             <h2> Nos {name}</h2>
-            {data.length > 0 ? <div className="row">
-                {buildCard()}
-            </div> : <div>
+            {data.length > 0 ?
+                <div className="row">
+                  
+                            {buildCard()}
+                  
+                </div>
 
-            Pas de  {name} disponible
-            </div>}
+                : <div>
+
+                    Pas de  {name} disponible
+                </div>}
 
         </div>)
 }
