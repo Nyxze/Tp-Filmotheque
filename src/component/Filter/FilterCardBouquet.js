@@ -119,7 +119,7 @@ export default function FilterCardBouquet({ url, setData }) {
                 </input>
 
                 {priceMax == priceMin ?
-                    "" :
+                    null:
                     <div>
                         <br>
                         </br>

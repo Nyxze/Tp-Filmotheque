@@ -2,13 +2,18 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 export default function AddSaison({ setSubmitted }) {
-    const [season, setSeason] = useState({});
+    const [season, setSeason] = useState({
+        name:""
+    });
     
     const handleClick = async () => {
         try {
             console.log(season)
              await axios.post('saisons', season)
             setSubmitted(true);
+            setSeason({
+                name:""
+            })
 
         } catch (err) {
         }
@@ -32,7 +37,7 @@ export default function AddSaison({ setSubmitted }) {
         <form className="form-horizontal" >
             <div className="form-group">
                 <div className="col-xs-10">
-                    <input onChange={handleInputChange} id="libelleStyle" name="name" placeholder="Nom de la saison ..." required
+                    <input onChange={handleInputChange} value={season.name} id="libelleStyle" name="name" placeholder="Nom de la saison ..." required
                         className="form-control" />
                 </div>
                 <div className="col-xs-2">

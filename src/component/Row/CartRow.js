@@ -4,8 +4,9 @@ export default function GenericRow({ item, setSubmitted, url }) {
     const handleDelete = async (e) => {
 
         try {
-
-            await axios.delete(`${url}/${item.id}`)
+                await axios.delete(`${url}/${item.id}`)
+                
+            
             setSubmitted(true);
 
         } catch (err) {

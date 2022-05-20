@@ -25,8 +25,8 @@ function NavbarMain({ loggedIn, setLoggedIn }) {
 function  isAdmin()  {
 
     let user = JSON.parse(sessionStorage.getItem("user"));
-    
-    return user; 
+    console.log(user);
+    return user == "admin"; 
 }
 
     return (
@@ -46,7 +46,8 @@ function  isAdmin()  {
 
                             {loggedIn
                                 ?
-                                <Nav.Link onClick={logout} as={Link} to={"/home"}>Logout</Nav.Link> :
+                                <Nav.Link onClick={logout} as={Link} to={"/home"}>Logout</Nav.Link> 
+                                :
                                 <>
                                     <Nav.Link as={Link} to={"/register"}>Register</Nav.Link>
                                     <Nav.Link as={Link} to={"/login"}>Login</Nav.Link>
